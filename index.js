@@ -9,7 +9,26 @@ app.use(express.json());
 
 const uri = "mongodb+srv://dbinfo_123:nyCvwPMD5vQyITlw@cluster0.2dekqa0.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-console.log('db connected');
+
+async function run() {
+    try {
+        await client.connect();
+        const productCollection = client.db("products").collection("information");
+
+        //add product information
+        app.post('/info', async (req, res) => {
+            const newInfo = req.body;
+            console.log('adding new category', newInfo);
+            const result = await productCollection.insertOne(newInfo);
+            res.send(result);
+        })
+    }
+    finally {
+
+    }
+}
+run().catch(console.dir);
+
 app.get('/', (req, res) => {
     res.send('Running product  iitem information');
 });
