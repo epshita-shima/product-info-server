@@ -50,7 +50,7 @@ async function run() {
                     insertType: updateInfo.insertType,
                     insertName: updateInfo.insertName,
                     insertCategory: updateInfo.insertCategory,
-                    insertUnitName: updateInfo.insertUnitName,
+                    unitData: updateInfo.unitData,
                     insertStock: updateInfo.insertStock
                 }
             };
