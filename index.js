@@ -15,6 +15,14 @@ async function run() {
         await client.connect();
         const productCollection = client.db("products").collection("information");
 
+        // get information
+        app.get('/info', async (req, res) => {
+            const query = {};
+            const cursor = productCollection.find(query);
+            const itemInfo = await cursor.toArray();
+            res.send(itemInfo);
+        })
+
         //add product information
         app.post('/info', async (req, res) => {
             const newInfo = req.body;
