@@ -23,11 +23,39 @@ async function run() {
             res.send(itemInfo);
         })
 
+        // get for single product info
+        app.get('/update/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await productCollection.findOne(query);
+            res.send(result);
+        })
+
         //add product information
         app.post('/info', async (req, res) => {
             const newInfo = req.body;
             console.log('adding new category', newInfo);
             const result = await productCollection.insertOne(newInfo);
+            res.send(result);
+        })
+
+        // update product info
+        app.put('/update/:id', async (req, res) => {
+            const id = req.params.id;
+            const updateInfo = req.body;
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    insertType: updateInfo.insertType,
+                    insertName: updateInfo.insertName,
+                    insertCategory: updateInfo.insertCategory,
+                    insertUnitName: updateInfo.insertUnitName,
+                    insertStock: updateInfo.insertStock
+                }
+            };
+            console.log(updateInfo);
+            const result = await productCollection.updateOne(filter, updateDoc, options);
             res.send(result);
         })
 
