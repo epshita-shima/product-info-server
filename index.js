@@ -49,7 +49,7 @@ async function run() {
                 $set: {
                     insertType: updateInfo.insertType,
                     insertName: updateInfo.insertName,
-                    insertCategory: updateInfo.insertCategory,
+                    categoryData: updateInfo.categoryData,
                     unitData: updateInfo.unitData,
                     insertStock: updateInfo.insertStock
                 }
